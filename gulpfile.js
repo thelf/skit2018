@@ -16,3 +16,10 @@ var gulp          = require('gulp'),
 
 var src           = './src/',
     dist          = './dist/';
+
+// Gulp Task
+// Minify HTML
+gulp.task('html', function () {
+    gulp.src(dist + '*.html',{force: true})
+        .pipe(clean());
+});
