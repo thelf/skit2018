@@ -59,6 +59,10 @@ gulp.task('js',function(){
         // Kompiliert ES6 JS Dateien
         .pipe(babel({
             presets: ['es2015']}))
+        // Plugin browserify ermöglicht import von Scripten
+        .pipe(browserify({
+            insertGlobals: true,
+            debug: !gulp.env.production}))
         // Plugin uglify minifiziert JS Dateien
         .pipe(uglify())
         // Plugin rename benennt Datei um in style.min.css
