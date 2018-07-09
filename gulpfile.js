@@ -30,4 +30,12 @@ gulp.task('html', function () {
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest(dist));
 });
-// Ende Taskname 'html'
+
+// #################################
+// Watch
+
+// Der Befehl gulp ruft standardmäig den Task 'default' auf.
+gulp.task('default', function(){
+    //-> Überwacht alle Dateien mit der Endung .html im Verzeichnis /html
+    gulp.watch([src + '*.html'],['html']);
+});
