@@ -46,6 +46,31 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(dist + 'assets/css'));
 });
 
+// Taskname 'JS'
+gulp.task('js',function(){
+    //-> erstellt im Verzeichnis /dist das Verzeichnis /assets/js mit dem Datei Namen *.js
+    gulp.src(src + 'assets/js/*.js')
+    // Sourcemap wird initialliisiert
+        .pipe(sourcemaps.init())
+        // Plugin plumber führt Task auch nach Fehler weiter aus
+        .pipe(plumber())
+        // Plugin concat fügt alle .js Dateien zu einer Datei zusammen
+        .pipe(concat('global.js'))
+        // Kompiliert ES6 JS Dateien
+        .pipe(babel({
+            presets: ['es2015']}))
+        // Plugin uglify minifiziert JS Dateien
+        .pipe(uglify())
+        // Plugin rename benennt Datei um in style.min.css
+        .pipe(rename({ suffix: '.min'}))
+        // schreibt Sourcemap in das Verzeichnis in der auch die JS Datei liegt
+        .pipe(sourcemaps.write('.'))
+        // erstellt Verzeichnis /assets/js im Ordner /dist
+        .pipe(gulp.dest(dist + '/assets/js/'));
+});
+
+
+
 // #################################
 // Minify HTML
 
@@ -65,7 +90,7 @@ gulp.task('html', function () {
 
 // Der Befehl gulp ruft standardmäig den Task 'default' auf.
 gulp.task('default', function(){
-    //-> Überwacht alle Dateien mit der Endung .html im Verzeichnis /html
+    //-> Überwacht alle Dateien mit der Endung .html und .scss im Verzeichnis /src
     gulp.watch([src + '*.html'],['html']);
     gulp.watch([src + 'assets/scss/*.scss'],['sass']);
 });
