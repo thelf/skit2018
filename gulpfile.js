@@ -17,7 +17,36 @@ var gulp          = require('gulp'),
 var src           = './src/',
     dist          = './dist/';
 
-// Gulp Task
+// Gulp Tasks
+
+// #################################
+// Minify SASS
+
+// Taskname 'sass'
+gulp.task('sass', function () {
+    //-> erstellt im Verzeichnis /dist das Verzeichnis /assets/css mit dem Datei Namen *.scss
+    gulp.src(src + 'assets/scss/*.scss')
+        // Sourcemap wird initialliisiert
+        .pipe(sourcemaps.init())
+            // Plugin plumber führt Task auch nach Fehler weiter aus
+            .pipe(plumber())
+            // Plugin sass wandelt sass/scss Dateien in css Dateien um
+            .pipe(sass())
+            // Plugin prefixer ergänzt prefixe
+            .pipe(autoprefixer())
+            // Plugin rename benennt Datei um in style.css
+            .pipe(rename({ basename: 'style'}))
+            // Plugin cleanCSS minifiziert CSS Datei
+            .pipe(cleanCSS())
+            // Plugin rename benennt Datei um in style.min.css
+            .pipe(rename({ suffix: '.min'}))
+        // schreibt Sourcemap in das Verzeichnis in der auch die CSS Datei liegt
+        .pipe(sourcemaps.write('.'))
+        // erstellt Verzeichnis /assets/css im Ordner /dist
+        .pipe(gulp.dest(dist + 'assets/css'));
+});
+
+// #################################
 // Minify HTML
 
 // Taskname 'html'
@@ -38,4 +67,5 @@ gulp.task('html', function () {
 gulp.task('default', function(){
     //-> Überwacht alle Dateien mit der Endung .html im Verzeichnis /html
     gulp.watch([src + '*.html'],['html']);
+    gulp.watch([src + 'assets/scss/*.scss'],['sass']);
 });
