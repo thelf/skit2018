@@ -19,7 +19,15 @@ var src           = './src/',
 
 // Gulp Task
 // Minify HTML
+
+// Taskname 'html'
 gulp.task('html', function () {
+    //-> löscht alle Dateien mit der Endung .html im Verzeichnis /dist
     gulp.src(dist + '*.html',{force: true})
         .pipe(clean());
+    // nimmt alle Dateien aus dem Verzeichnis /src und erstellt eine minifizierte Version im Verzeichnis /dist
+    gulp.src(src + '*.html')
+        .pipe(htmlmin({collapseWhitespace: true}))
+        .pipe(gulp.dest(dist));
 });
+// Ende Taskname 'html'
