@@ -1,0 +1,23 @@
+/*BASE STYLES*/
+body{
+  background: white;
+  color: $base-colour;
+}
+
+section {
+  display: flex;
+  justify-content: space-around;
+}
+
+h1{
+  font-family: $font-stack-sans-serif;
+}
+
+h2{
+  font-family:  $font-stack-serif;
+}
+
+h3{
+  font-family: $font-stack-serif;
+}
+
