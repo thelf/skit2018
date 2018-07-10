@@ -104,6 +104,6 @@ gulp.task('default', function(){
 
     //-> Überwacht alle Dateien mit der Endung .html und .scss im Verzeichnis /src
     gulp.watch([src + '*.html'],['html']);
-    gulp.watch([src + 'assets/scss/*.scss'],['sass']);
+    gulp.watch([src + 'assets/**/*.scss'],['sass']);
     gulp.watch([src + 'assets/js/*.js'],['js']);
 });
