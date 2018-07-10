@@ -83,8 +83,8 @@ gulp.task('js',function(){
 // Taskname 'html'
 gulp.task('html', function () {
     //-> löscht alle Dateien mit der Endung .html im Verzeichnis /dist
-    gulp.src(dist + '*.html',{force: true})
-        .pipe(clean());
+    // gulp.src(dist + '*.html',{force: true})
+    //     .pipe(clean());
     // nimmt alle Dateien aus dem Verzeichnis /src und erstellt eine minifizierte Version im Verzeichnis /dist
     gulp.src(src + '*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
