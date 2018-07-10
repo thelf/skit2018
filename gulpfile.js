@@ -43,7 +43,8 @@ gulp.task('sass', function () {
         // schreibt Sourcemap in das Verzeichnis in der auch die CSS Datei liegt
         .pipe(sourcemaps.write('.'))
         // erstellt Verzeichnis /assets/css im Ordner /dist
-        .pipe(gulp.dest(dist + 'assets/css'));
+        .pipe(gulp.dest(dist + 'assets/css'))
+        .pipe(browserSync.stream());
 });
 
 // Taskname 'JS'
@@ -70,7 +71,8 @@ gulp.task('js',function(){
         // schreibt Sourcemap in das Verzeichnis in der auch die JS Datei liegt
         .pipe(sourcemaps.write('.'))
         // erstellt Verzeichnis /assets/js im Ordner /dist
-        .pipe(gulp.dest(dist + '/assets/js/'));
+        .pipe(gulp.dest(dist + '/assets/js/'))
+        .pipe(browserSync.stream());
 });
 
 
@@ -86,7 +88,8 @@ gulp.task('html', function () {
     // nimmt alle Dateien aus dem Verzeichnis /src und erstellt eine minifizierte Version im Verzeichnis /dist
     gulp.src(src + '*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
-        .pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist))
+        .pipe(browserSync.stream());
 });
 
 // #################################
@@ -94,6 +97,11 @@ gulp.task('html', function () {
 
 // Der Befehl gulp ruft standardmäig den Task 'default' auf.
 gulp.task('default', function(){
+    //-> BrowserSync
+    browserSync.init({
+        server: './dist'
+    });
+
     //-> Überwacht alle Dateien mit der Endung .html und .scss im Verzeichnis /src
     gulp.watch([src + '*.html'],['html']);
     gulp.watch([src + 'assets/scss/*.scss'],['sass']);
